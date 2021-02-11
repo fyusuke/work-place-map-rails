@@ -22,6 +22,7 @@ jobs:
       - image: circleci/mysql:8.0.0
         # Docker用のMySQLイメージの環境変数：https://hub.docker.com/_/mysql
         environment:
+          - MYSQL_ROOT_PASSWORD: password
           - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           - MYSQL_ROOT_HOST: 127.0.0.1
 
