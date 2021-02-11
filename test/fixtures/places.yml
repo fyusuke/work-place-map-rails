@@ -1,0 +1,35 @@
+# == Schema Information
+#
+# Table name: places
+#
+#  id            :bigint           not null, primary key
+#  address       :string(255)
+#  category      :string(255)
+#  group         :string(255)
+#  latitude      :decimal(9, 6)
+#  longitude     :decimal(9, 6)
+#  name          :string(255)
+#  opening_hours :string(255)
+#  prefecture    :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  gmap_place_id :string(255)
+#
+
+one:
+  name: MyString
+  category: MyString
+  group: MyString
+  address: MyString
+  latitude: 9.99
+  longitude: 9.99
+  opening_hours: MyString
+
+two:
+  name: MyString
+  category: MyString
+  group: MyString
+  address: MyString
+  latitude: 9.99
+  longitude: 9.99
+  opening_hours: MyString
