@@ -44,11 +44,7 @@ jobs:
           # コマンドを設定する
           # ①bundler2.0.1以降のものを使っているのであれば、環境変数と合わせて指定する必要があります。
           command: |
-<<<<<<< HEAD
             gem install bundler -v 2.0.2
-=======
-            gem install bundler -v 2.0.2 # ①bundler2.0.1以降のものを使っているのであれば、環境変数と合わせて指定する必要があります。
->>>>>>> 19db04fe03f54cbbc9c1f5bd0da73afa3f7ab849
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       # パッケージなどのファイルをキャッシュする
