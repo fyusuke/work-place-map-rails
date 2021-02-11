@@ -8,7 +8,7 @@ jobs:
 
     # 自身のアプリディレクトリ名を設定。デフォルトは ~/project
     working_directory: ~/api
-    
+
     docker: # CI環境にDockerを利用する場合の設定。
       # ベースとなるDockerイメージ
       # Node.js バリアントの Docker イメージ (-node で終わるタグ) に対しては、Node.js の LTS リリースがプリインストールされています。 
@@ -23,7 +23,7 @@ jobs:
         # Docker用のMySQLイメージの環境変数：https://hub.docker.com/_/mysql
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          - MYSQL_ROOT_HOST: '127.0.0.1'
+          - MYSQL_ROOT_HOST: 127.0.0.1
 
     steps:
       # CI環境上の working_directory の値の場所にGitリポジトリをコピーする。
