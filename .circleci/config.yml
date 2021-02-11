@@ -5,6 +5,10 @@
 version: 2.1
 jobs:
   build: # job name
+
+    # 自身のアプリディレクトリ名を設定。デフォルトは ~/project
+    working_directory: ~/api
+    
     docker: # CI環境にDockerを利用する場合の設定。
       # ベースとなるDockerイメージ
       # Node.js バリアントの Docker イメージ (-node で終わるタグ) に対しては、Node.js の LTS リリースがプリインストールされています。 
@@ -13,16 +17,13 @@ jobs:
 #  ①注意！！ bundlerのバージョンが2.0.1以上だと、bundle installに失敗します。ここに環境として指定します。
           - BUNDLER_VERSION: 2.0.2
 #  ②注意！！ circleCIは仮想環境を構築するので、そのときに使うデータベースを指定する必要があります。
-          - RAILS_ENV: 'test'
+          - RAILS_ENV: test
       # 利用可能なバージョンを指定：https://circleci.com/docs/2.0/circleci-images/#mysql
-      - image: circleci/mysql:8.0.1
+      - image: circleci/mysql:8.0.0
         # Docker用のMySQLイメージの環境変数：https://hub.docker.com/_/mysql
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          # - MYSQL_ROOT_HOST: '%'
-
-    # 実行ディレクトリを設定する。デフォルトは ~/project
-    # working_directory: ~/repo
+          - MYSQL_ROOT_HOST: '127.0.0.1'
 
     steps:
       # CI環境上の working_directory の値の場所にGitリポジトリをコピーする。
@@ -41,8 +42,8 @@ jobs:
           # 任意のrunの名前
           name: install dependencies
           # コマンドを設定する
+          # ①bundler2.0.1以降のものを使っているのであれば、環境変数と合わせて指定する必要があります。
           command: |
-# ①bundler2.0.1以降のものを使っているのであれば、環境変数と合わせて指定する必要があります。
             gem install bundler -v 2.0.2
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
@@ -83,9 +84,9 @@ jobs:
 #              --format progress \
 #              $TEST_FILES
 
-#      # collect reports
-#      - store_test_results:
-#          path: /tmp/test-results
-#      - store_artifacts:
-#          path: /tmp/test-results
-#          destination: test-results
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
