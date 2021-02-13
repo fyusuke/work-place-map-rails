@@ -52,9 +52,12 @@ class Api::V1::PlacesController < ApplicationController
   def get_reviews
     place = Place.find_by(gmap_place_id: params[:gmap_place_id])
     unless place.present?
-      logger.debug(place.errors.full_messages)
+      logger.debug("place doesn't exist")
       render status: 404
+      return
     end
+
+    logger.debug(1)
 
     reviews = place.reviews.map{ |review|  
       { posterName: review.user.name,
