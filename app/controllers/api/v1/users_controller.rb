@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy]
 
   # TODO accept only Vue app conn
   def create
@@ -19,15 +19,15 @@ class Api::V1::UsersController < ApplicationController
     render json: { user: data }, status: 200
   end
 
-  # def update
-  #   if @user.update(user_params)
-  #     logger.debug("User is updated")
-  #     render status: 200
-  #   else
-  #     logger.debug(user.errors.full_messages)
-  #     render status: 400
-  #   end
-  # end
+  def update
+    if @user.update(user_params)
+      logger.debug("User is updated")
+      render status: 200
+    else
+      logger.debug(@user.errors.full_messages)
+      render status: 400
+    end
+  end
 
   def destroy
     @user.destroy

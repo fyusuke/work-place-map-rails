@@ -1,14 +1,14 @@
 # == Route Map
 #
 #                                Prefix Verb   URI Pattern                                                                              Controller#Action
-#                          api_v1_users GET    /api/v1/users(.:format)                                                                  api/v1/users#index {:format=>/json/}
-#                                       POST   /api/v1/users(.:format)                                                                  api/v1/users#create {:format=>/json/}
+#                          api_v1_users POST   /api/v1/users(.:format)                                                                  api/v1/users#create {:format=>/json/}
 #                           api_v1_user GET    /api/v1/users/:firebase_uid(.:format)                                                    api/v1/users#show {:format=>/json/}
 #                                       PATCH  /api/v1/users/:firebase_uid(.:format)                                                    api/v1/users#update {:format=>/json/}
 #                                       PUT    /api/v1/users/:firebase_uid(.:format)                                                    api/v1/users#update {:format=>/json/}
 #                                       DELETE /api/v1/users/:firebase_uid(.:format)                                                    api/v1/users#destroy {:format=>/json/}
 #               api_v1_contact_us_forms POST   /api/v1/contact_us_forms(.:format)                                                       api/v1/contact_us_forms#create {:format=>/json/}
-#                         api_v1_places POST   /api/v1/places/get_reviews(.:format)                                                     api/v1/places#get_reviews {:format=>/json/, :param=>[:gmap_place_id]}
+#             get_reviews_api_v1_places POST   /api/v1/places/get_reviews(.:format)                                                     api/v1/places#get_reviews {:format=>/json/, :param=>[:gmap_place_id]}
+#              get_rating_api_v1_places POST   /api/v1/places/get_rating(.:format)                                                      api/v1/places#get_rating {:format=>/json/, :param=>[:gmap_place_id]}
 #                        api_v1_reviews POST   /api/v1/reviews(.:format)                                                                api/v1/reviews#create {:format=>/json/}
 #                         api_v1_review DELETE /api/v1/reviews/:id(.:format)                                                            api/v1/reviews#destroy {:format=>/json/}
 #         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
@@ -33,11 +33,11 @@
 Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1', format: 'json' do
-      resources :users, param: :firebase_uid, only:[:create, :show, :destroy]
+      resources :users, param: :firebase_uid, only:[:create, :show, :update, :destroy]
       resources :contact_us_forms, only: [:create]
       resources :places, only:[] do
-        # post 'search', :controller => 'places', :action => 'search', as:'', param: [:latitude, :longitude], on: :collection
-        post 'get_reviews', :controller => 'places', :action => 'get_reviews', as:'', param: [:gmap_place_id], on: :collection
+        post 'get_reviews', :controller => 'places', :action => 'get_reviews', as:'get_reviews', param: [:gmap_place_id], on: :collection
+        post 'get_rating', :controller => 'places', :action => 'get_rating', as:'get_rating', param: [:gmap_place_id], on: :collection
       end
       resources :reviews, only:[:create, :destroy]
     end

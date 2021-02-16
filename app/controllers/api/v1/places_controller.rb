@@ -1,4 +1,5 @@
 class Api::V1::PlacesController < ApplicationController
+  before_action :set_place, only: [:get_reviews, :get_rating]
 
   # def distance(lat1, lng1, lat2, lng2)
   #   # ラジアン単位に変換
@@ -50,22 +51,12 @@ class Api::V1::PlacesController < ApplicationController
   # end
 
   def get_reviews
-    place = Place.find_by(gmap_place_id: params[:gmap_place_id])
-    unless place.present?
-      logger.debug("place doesn't exist")
-      render status: 404
-      return
-    end
-
-    logger.debug(1)
-
-    reviews = place.reviews.map{ |review|  
+    reviews = @place.reviews.map do |review|  
       { posterName: review.user.name,
          rating: review.rating,
          comment: review.comment,
          createdAt: review.created_at.strftime('%Y/%m/%d') }
-     }
-    logger.debug(reviews)
+    end
     if reviews.count != 0
       render json: {reviews: reviews}, status: 200
     else
@@ -74,6 +65,22 @@ class Api::V1::PlacesController < ApplicationController
     end
   end
 
+  def get_rating
+    numOfRating = @place.reviews.count
+    sumOfRating = @place.reviews.sum { |review| review[:rating]}
+    rating = {numOfRating: numOfRating, sumOfRating: sumOfRating}
+    render json: {rating: rating}, status: 200
+  end
+
   private
+
+  def set_place
+    @place = Place.find_by(gmap_place_id: params[:gmap_place_id])
+    unless @place.present?
+      logger.debug("place doesn't exist")
+      render status: 404
+      return
+    end
+  end
 
 end
