@@ -35,6 +35,7 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  
   namespace 'api' do
     namespace 'v1', format: 'json' do
       resources :home, only: [:index]
