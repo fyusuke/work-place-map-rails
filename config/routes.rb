@@ -31,6 +31,8 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
+  root to: 'home#index'
+
   namespace 'api' do
     namespace 'v1', format: 'json' do
       resources :users, param: :firebase_uid, only:[:create, :show, :update, :destroy]
