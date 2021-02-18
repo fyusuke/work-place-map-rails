@@ -1,6 +1,8 @@
 # == Route Map
 #
 #                                Prefix Verb   URI Pattern                                                                              Controller#Action
+#                                  root GET    /                                                                                        home#index
+#                     api_v1_home_index GET    /api/v1/home(.:format)                                                                   api/v1/home#index {:format=>/json/}
 #                          api_v1_users POST   /api/v1/users(.:format)                                                                  api/v1/users#create {:format=>/json/}
 #                           api_v1_user GET    /api/v1/users/:firebase_uid(.:format)                                                    api/v1/users#show {:format=>/json/}
 #                                       PATCH  /api/v1/users/:firebase_uid(.:format)                                                    api/v1/users#update {:format=>/json/}
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1', format: 'json' do
+      resources :home, only: [:index]
       resources :users, param: :firebase_uid, only:[:create, :show, :update, :destroy]
       resources :contact_us_forms, only: [:create]
       resources :places, only:[] do
