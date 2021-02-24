@@ -52,5 +52,6 @@ test:
 production:
   <<: *default
   database: app_production
-  username: app
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+  host: <%= Rails.application.credentials.db_rds[:host] %>
+  username: <%= Rails.application.credentials.db_rds[:username] %>
+  password: <%= Rails.application.credentials.db_rds[:password] %>
