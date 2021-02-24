@@ -27,3 +27,5 @@
 /config/master.key
 
 /memo.txt
+
+/config/credentials/development.key

@@ -17,7 +17,7 @@ class Api::V1::ContactUsFormsController < ApplicationController
     def set_user
       @user = User.find_by(firebase_uid: params[:firebase_uid])
       unless @user.present?
-        logger.debug(@user.errors.full_messages)
+        logger.debug("user is not found")
         render status: 400
       end
     end
