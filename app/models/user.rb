@@ -16,5 +16,5 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true
   validates :firebase_uid, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
+  validates :email, uniqueness: true, format: { with: VALID_EMAIL_REGEX }, allow_nil: true # Twitter doesn't provice email address => allow_nil: true
 end

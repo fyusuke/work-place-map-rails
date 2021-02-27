@@ -1,7 +1,7 @@
 class Api::V1::ContactUsFormsController < ApplicationController
   before_action :set_user, only: [:create]
 
-  # TODO emailを送ること
+  # TODO emailを送ること, Twitter認証はemail情報を提供しないので注意
   def create
     @user.contact_us_forms.create(message: contact_us_form_params[:message])
     logger.debug('ContactUsForm is created')
