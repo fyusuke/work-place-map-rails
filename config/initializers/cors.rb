@@ -6,7 +6,7 @@
 # Read more: https://github.com/cyu/rack-cors
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins Rails.application.credentials.front[:host_prod], Rails.application.credentials.front[:host_local], "https://www.work-place-map.net"
+    origins Rails.application.credentials.front[:host_prod], Rails.application.credentials.front[:host_prod_www], Rails.application.credentials.front[:host_local]
 
     resource '*',
       headers: :any,
