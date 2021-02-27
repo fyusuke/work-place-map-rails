@@ -6,7 +6,7 @@
 # Read more: https://github.com/cyu/rack-cors
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins Rails.application.credentials.front[:host_prod], Rails.application.credentials.front[:host_local]
+    origins Rails.application.credentials.front[:host_prod], Rails.application.credentials.front[:host_local], "alb-for-work-place-map-api-1124851016.us-west-2.elb.amazonaws.com"
 
     resource '*',
       headers: :any,
